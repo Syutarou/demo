@@ -1,0 +1,26 @@
+require 'sinatra'
+require 'erb'
+
+get '/' do
+  erb :index
+end
+
+post '/calculate' do
+  number = params[:number].to_i
+  tax1 = (number * 1.08).round(2)
+  tax2 = (number * 1.1).round(2)
+  "入力された金額: #{number}円、消費税8%の場合: #{tax1}円、消費税10%の場合: #{tax2}円"
+end
+
+__END__
+
+@@ index
+<html>
+  <body>
+    <form action="/calculate" method="post">
+      <label>金額を入力してください:</label>
+      <input type="text" name="number">
+      <input type="submit" value="計算">
+    </form>
+  </body>
+</html>
